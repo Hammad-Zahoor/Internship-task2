@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    /* Menu styling */
+    :root {       /* defined global variables for CSS colors */ 
+        --third-color: #007bff;
+        --fourth-color: #28a745;
+    }
+
+    body{
+       height: 97.5vh;    /* defined body color for styling */
+        background:linear-gradient(white,rgb(155, 155, 198));
+    }
+
+    .active img {    /* put a logo on the navbar */
+        /* make the size of logo.png small*/
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-container {
+        width: 100%;
+        position: fixed;
+        top: 0;    /* to view navbar better */
+        left: 0;
+        border-bottom: 5px solid #007bff;    /* add bottom border for styling */
+        background: -webkit-linear-gradient(45deg, #f5f6fa, #dcdde1, #f5f6fa);
+        background: linear-gradient(45deg, #f5f6fa, #dcdde1, #f5f6fa);
+    }
+
+    .nav-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .nav-wrapper ul.nav-list {
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .nav-wrapper ul.nav-list li {
+        margin-left: 30px;
+        padding: 20px 0;
+        position: relative;
+    }
+
+    .nav-wrapper ul.nav-list li a {
+        color: var(--third-color);
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: all 0.5s ease-in-out;
+        font-weight: bold;
+    }
+
+    .nav-wrapper ul.nav-list li a:hover,
+    .nav-wrapper ul.nav-list li.active a {
+        color: var(--blue-color);
+    }
+
+    nav ul.dropdown-list {
+        list-style-type: none;
+        display: block;
+        background: whitesmoke;
+        padding: 6px 16px;
+        position: absolute;
+        width: max-content;
+        z-index: 9999;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .nav-wrapper ul.dropdown-list li {
+        margin-left: 0;
+        padding: 5px 0;
+    }
+
+    .nav-wrapper ul.dropdown-list li a {
+        color: var(--third-color);
+    }
+
+    .nav-wrapper ul.nav-list li:hover .dropdown-list {
+        opacity: 1;
+        pointer-events: auto;
+        animation: moveUp 0.5s ease-in-out forwards;
+    }
+
+    .nav-wrapper .nav-list li .btn a {
+        color: var(--fourth-color);
+    }
+
+    .nav-wrapper .nav-list li .btn:hover a {
+        color: var(--third-color);
+    }
+
+
+    /* Responsive menu */
+    .hamberger {
+        display: none;
+    }
+
+    .mobile .nav-wrapper {   /* for better view on small screens */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 300px;
+    }
+
+    .mobile .active img {
+        margin-top: 10px;   /* set logo position in small screens */
+    }
+
+    .mobile .hamberger {     /* to make better display and styling */
+        display: flex;
+        flex-direction: row;
+        padding: 20px 0;
+        cursor: pointer;
+        background: linear-gradient(#7b7ac9, #90a0d1, #7b7ac9);
+        width: 100px;
+        border-radius: 15px;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px black;
+        height: 20px;
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+
+    .mobile .hamberger span {    /* removes some element */
+        width: 40px;
+        height: 20px;
+        margin-bottom: 2px;
+        padding: 2px 2px;
+    }
+
+    .mobile ul.nav-list {     /* add some styling */
+        background: -webkit-linear-gradient(45deg, #f5f6fa, #dcdde1);
+        background: linear-gradient(45deg, #f5f6fa, #dcdde1);
+        width: 300px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mobile .nav-wrapper ul li {
+        text-align: center;
+        font-weight: bold;
+        margin: auto;
+    }
+
+    .mobile ul.dropdown-list {
+        position: relative;
+        background: transparent;
+        text-align: center;
+        height: 0;
+        padding-top: 0;
+    }
+
+    .mobile .nav-wrapper ul li:hover .dropdown-list {
+        height: max-content;
+        padding-top: 6px;
+    }
+
+    .mobile .nav-wrapper ul.dropdown-list li a {
+        color: #387cdb;
+    }
+
+    .mobile .nav-wrapper ul.dropdown-list li a:hover {    /* add some styling */
+        color: black;
+        font-weight: bold;
+    }
+
+    .btn{     /* for button styling */
+        background-color: rgb(255, 255, 255);
+        border: none;
+        height: 30px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px 2px rgb(25, 1, 1,0.4);
+    }
+
+    .btn a{
+        color:black;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+
+
+
+    <nav>
+        <div class="menu-container nav-wrapper">
+            <div class="title">
+                <div class="brand">
+                    <a class="active" href="index.html">
+                        <img src="logo.png" alt="insurancy-logo" border="0"> <!--add logo png-->
+                    </a>
+                </div>
+
+                <div class="hamberger">   <!-- add some content -->
+                    <span>Tap</span>
+                    <span>for</span>
+                    <span>Menu</span>
+                </div>
+            </div>
+            <div>
+                <ul class="nav-list">
+                    <li><a href="#">Services</a>
+                        <ul class="dropdown-list">
+                            <li><a href="#">Facilitate in websites</a></li> <!-- adda some services point-->
+                            <li><a href="#">Facilitate in mobile apps</a></li>
+                            <li><a href="#">Fasilitate in user database</a></li>
+                            <li><a href="#">Facilitate in cloud</a></li>
+                            <li><a href="#">Facilitate in deployment</a></li>
+                            <li><a href="#">Facilitate in mantainance</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">Careers</a>
+                    </li>
+                    <li><a href="products.html">News</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contacts</a></li>
+                    <li>
+                        <button class="btn btn-blue">
+                            <a href="#">Get Started</a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <script>
+        //arrange the functions and variable position
+
+        let hamberger = document.querySelector('.hamberger');
+        let mobileNav = document.querySelector('.nav-list');
+        let bars = document.querySelectorAll('.hamberger span');
+        let isActive = false;
+        let screensize = false;    // for memu property
+
+        function addRequiredClasses() {
+            if (window.innerWidth < 860) {
+                document.body.classList.add('mobile');
+                mobileNav.style.display = 'none'; // Hide navbar for small screens initially
+            } else {
+                document.body.classList.remove('mobile');
+                mobileNav.style.display = 'flex'; // Show navbar for larger screens initially
+            }
+        }
+        addRequiredClasses();
+        window.addEventListener("resize", function () {    // displays the 'load' with 'rsize'
+            addRequiredClasses();
+        });
+        
+        /* retate and dsiplay when button is pressed */
+        hamberger.addEventListener('click', function () {
+            if (mobileNav.style.display === 'none') {
+                mobileNav.style.display = 'flex';
+                bars[0].style.transform = 'rotate(45deg)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'rotate(-45deg)';
+                isActive = true;
+            } else {
+                mobileNav.style.display = 'none';
+                bars[0].style.transform = 'rotate(0deg)';
+                bars[1].style.opacity = '1';
+                bars[2].style.transform = 'rotate(0deg)';
+                isActive = false;
+            }
+        });
+        
+    </script>
+
+</body>
+
+</html>
